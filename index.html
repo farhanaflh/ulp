@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Location Finder - Find the Unfindable</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>🗺️ 404 Location Finder</h1>
+                <p class="tagline">Your guide to places that don't exist (and some that do, but we'll pretend they don't)</p>
+            </div>
+            <div class="broken-compass"></div>
+        </header>
+
+        <!-- Search Interface -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="locationInput" 
+                        class="form-control search-input" 
+                        placeholder="Search for Atlantis, your socks, Eiffel Tower, etc."
+                        autocomplete="off"
+                    >
+                    <button id="searchBtn" class="btn btn--primary search-btn">
+                        <span class="search-text">Find Location</span>
+                        <span class="search-loader hidden">🔍</span>
+                    </button>
+                </div>
+                
+                <!-- Search History -->
+                <div id="searchHistory" class="search-history hidden">
+                    <h4>Recent Impossible Searches:</h4>
+                    <ul id="historyList"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Animation -->
+        <div id="loadingSection" class="loading-section hidden">
+            <div class="loading-spinner"></div>
+            <p id="loadingMessage" class="loading-message">Consulting the Oracle of Lost Things...</p>
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section hidden">
+            <div class="results-header">
+                <h2>🎯 Quest Results</h2>
+                <div class="result-actions">
+                    <button id="audioBtn" class="btn btn--secondary">
+                        <span>🔊 Play Audio Guide</span>
+                    </button>
+                    <button id="randomizeBtn" class="btn btn--outline">
+                        🎲 Randomize Everything
+                    </button>
+                </div>
+            </div>
+
+            <!-- Directions Display -->
+            <div class="directions-card card">
+                <div class="card__body">
+                    <h3>📍 Absolutely Reliable Directions</h3>
+                    <p id="directionsText" class="directions-text"></p>
+                    
+                    <h4>🎒 Essential Travel Recommendations</h4>
+                    <ul id="recommendationsList" class="recommendations-list"></ul>
+                </div>
+            </div>
+
+            <!-- Interactive Map -->
+            <div class="map-container">
+                <h3>🗺️ Highly Accurate Map</h3>
+                <div class="map-wrapper">
+                    <canvas id="mapCanvas" width="600" height="400"></canvas>
+                    <div class="map-legend">
+                        <div class="legend-item">🏴‍☠️ Treasure</div>
+                        <div class="legend-item">👣 Footprints</div>
+                        <div class="legend-item">⚠️ Warnings</div>
+                        <div class="legend-item">🐉 Obstacles</div>
+                    </div>
+                </div>
+                <p class="map-instructions">Click anywhere on the map for mysterious discoveries!</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button id="shareBtn" class="btn btn--primary">
+                    📱 Share Your Quest
+                </button>
+                <button id="certificateBtn" class="btn btn--secondary">
+                    🏆 Get 404 Certificate
+                </button>
+                <button id="newSearchBtn" class="btn btn--outline">
+                    🔄 Search Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Share Modal -->
+        <div id="shareModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📱 Share Your Impossible Quest</h3>
+                    <button id="closeShareModal" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="shareText" class="form-control" rows="4" readonly></textarea>
+                    <div class="share-buttons">
+                        <button id="copyShareText" class="btn btn--primary">📋 Copy Text</button>
+                        <button id="tweetBtn" class="btn btn--secondary">🐦 Tweet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate Modal -->
+        <div id="certificateModal" class="modal hidden">
+            <div class="modal-content certificate-modal">
+                <div class="modal-header">
+                    <h3>🏆 Official 404 Certificate</h3>
+                    <button id="closeCertificateModal" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="certificate" class="certificate">
+                        <div class="certificate-header">
+                            <h2>🎖️ CERTIFICATE OF MAGNIFICENT FAILURE 🎖️</h2>
+                        </div>
+                        <div class="certificate-body">
+                            <p>This certifies that</p>
+                            <h3 id="certificateName" class="certificate-name">Brave Explorer</h3>
+                            <p>has successfully <strong>FAILED</strong> to find</p>
+                            <h4 id="certificateLocation" class="certificate-location"></h4>
+                            <p>Despite following our completely reliable directions</p>
+                            <div class="certificate-footer">
+                                <p>Signed: The Department of Lost Things</p>
+                                <p id="certificateDate"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="downloadCertificate" class="btn btn--primary">📥 Download Certificate</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+            <div class="floating-element" style="--delay: 0s; --duration: 8s;">🧭</div>
+            <div class="floating-element" style="--delay: 2s; --duration: 10s;">🗺️</div>
+            <div class="floating-element" style="--delay: 4s; --duration: 12s;">🔍</div>
+            <div class="floating-element" style="--delay: 6s; --duration: 9s;">📍</div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 404 Location Finder - Guaranteed to never find what you're looking for!</p>
+            <p class="disclaimer">⚠️ Not responsible for getting lost in real life while following our directions</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
